@@ -1,11 +1,11 @@
  // Dados de exemplo — substitua por chamadas reais a uma API se quiser
     const produtos = [
-      { id:1, nome:'Legging Essential', categoria:'Legging', price:179.9, img:'https://images.unsplash.com/photo-1526403224743-57a25a5d9a6e?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' },
-      { id:2, nome:'Top Support', categoria:'Top', price:99.9, img:'https://images.unsplash.com/photo-1520975681912-7b6640a29b6f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' },
-      { id:3, nome:'Short Run', categoria:'Legging', price:129.9, img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' },
-      { id:4, nome:'Cinta Modeladora', categoria:'Acessório', price:69.9, img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' },
-      { id:5, nome:'Mochila Sport', categoria:'Acessório', price:249.0, img:'https://images.unsplash.com/photo-1545964570-9fc4b6ea1aee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' },
-      { id:6, nome:'Top Seamless', categoria:'Top', price:119.0, img:'https://images.unsplash.com/photo-1543168253-5a3e31f0d9f6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' }
+  { id:1, nome:'Legging Essential', categoria:'Legging', price:179.9, img:'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3' },
+  { id:2, nome:'Top Support', categoria:'Top', price:99.9, img:'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3' },
+  { id:3, nome:'Short Run', categoria:'Legging', price:129.9, img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder' },
+  { id:4, nome:'Cinta Modeladora', categoria:'Acessório', price:69.9, img:'https://via.placeholder.com/300x300?text=Imagem+Indispon%C3%ADvel' },
+  { id:5, nome:'Mochila Sport', categoria:'Acessório', price:249.0, img:'https://via.placeholder.com/300x300?text=Imagem+Indispon%C3%ADvel' },
+  { id:6, nome:'Top Seamless', categoria:'Top', price:119.0, img:'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3' }
     ];
 
     const productGrid = document.getElementById('productGrid');
@@ -26,7 +26,7 @@
         const card = document.createElement('article');
         card.className = 'card';
         card.innerHTML = `
-          <img src="${p.img}" alt="${p.nome}" loading="lazy">
+          <img src="${p.img}" alt="${p.nome}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Imagem+Indispon%C3%ADvel'">
           <h3>${p.nome}</h3>
           <div class="tags"><span class="tag">${p.categoria}</span></div>
           <div class="price-row">
