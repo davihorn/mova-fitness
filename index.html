@@ -1,135 +1,212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="style/style.css">
-  <title>Moda Fitness — Loja</title>
-  <meta name="description" content="Loja de moda fitness — roupas, tops, leggings e acessórios para treinar com estilo" />
-
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moda Fitness</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{background:#f9f9f9;color:#333;}
+    header{position:fixed;top:0;left:0;width:100%;background:#111;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:15px 40px;z-index:1000;}
+    header h1{font-size:24px;font-weight:600;color:#00c497;}
+    header nav a{margin-left:20px;color:#fff;text-decoration:none;font-weight:500;transition:.3s;}
+    header nav a:hover{color:#00c497;}
+    main{padding-top:100px;}
+    section{padding:60px 40px;}
+    #produtos h2{text-align:center;margin-bottom:30px;font-size:28px;}
+    .filtros{display:flex;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+    .filtros input,.filtros select{padding:10px;border:1px solid #ddd;border-radius:6px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+    .produto{background:#fff;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.1);padding:15px;transition:.3s;display:flex;flex-direction:column;}
+    .produto:hover{transform:translateY(-5px);}
+    .produto img{width:100%;border-radius:8px;height:200px;object-fit:cover;}
+    .produto h3{margin:10px 0;font-size:18px;}
+    .produto p{font-size:14px;color:#666;flex-grow:1;}
+    .produto span{font-weight:600;color:#00c497;font-size:16px;display:block;margin:8px 0;}
+    .btn{padding:10px 16px;border:none;border-radius:6px;background:#00c497;color:#fff;cursor:pointer;transition:.3s;font-weight:500;}
+    .btn:hover{background:#00a97e;}
+    /* Drawer Carrinho */
+    #cartDrawer{position:fixed;top:0;right:-400px;width:350px;height:100%;background:#fff;box-shadow:-2px 0 8px rgba(0,0,0,.2);transition:.4s;padding:20px;z-index:2000;display:flex;flex-direction:column;}
+    #cartDrawer.open{right:0;}
+    #cartItems{flex-grow:1;margin-top:15px;overflow-y:auto;}
+    #cartDrawer h2{font-size:20px;margin-bottom:10px;}
+    #cartDrawer .cart-total{margin:15px 0;font-size:16px;font-weight:600;}
+    .cart-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+    footer{background:#111;color:#fff;padding:40px;text-align:center;margin-top:50px;}
+    footer a{color:#00c497;text-decoration:none;margin:0 8px;}
+  </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <div class="logo">MF</div>
-        <div class="text">Moda Fitness</div>
-      </div>
 
-      <nav>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#produtos">Produtos</a></li>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
+<header>
+  <h1>Moda Fitness</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+    <a href="javascript:void(0)" id="cartBtn">🛒 Carrinho (<span id="cartCount">0</span>)</a>
+  </nav>
+</header>
 
-      <div class="actions">
-        <button class="ghost" id="toggleFilters">Filtros</button>
-        <button class="btn" id="cartBtn">Carrinho (<span id="cartCount">0</span>)</button>
-      </div>
+<main>
+  <section id="home">
+    <h2>Bem-vindo(a) à Moda Fitness</h2>
+    <p style="text-align:center;max-width:700px;margin:10px auto;">Encontre roupas fitness modernas, confortáveis e estilosas para treinar com performance e atitude.</p>
+  </section>
+
+  <section id="produtos">
+    <h2>Produtos</h2>
+    <div class="filtros">
+      <input type="text" id="busca" placeholder="Buscar produto...">
+      <select id="ordenar">
+        <option value="">Ordenar</option>
+        <option value="asc">Menor preço</option>
+        <option value="desc">Maior preço</option>
+      </select>
     </div>
-  </header>
+    <div class="grid" id="produtosGrid"></div>
+  </section>
 
-  <main class="container">
-    <section class="hero">
-      <div>
-        <h1>Moda fitness que acompanha seu ritmo</h1>
-        <p>Peças confortáveis, sustentáveis e cheias de estilo. Encontre leggings, tops e acessórios pensados para performar.</p>
-        <div class="cta">
-          <button class="btn" onclick="scrollToProducts()">Ver Produtos</button>
-          <button class="ghost">Coleções</button>
-        </div>
+  <section id="sobre">
+    <h2>Sobre Nós</h2>
+    <p style="max-width:700px;margin:auto;text-align:center;">Somos apaixonados por moda fitness! Trabalhamos para oferecer roupas de qualidade, tecnologia e estilo para você arrasar nos treinos e no dia a dia. Nosso compromisso é unir conforto, beleza e performance.</p>
+  </section>
 
-        <div style="margin-top:18px;" class="muted">Entrega rápida — Troca fácil — Tamanhos inclusivos</div>
-      </div>
+  <section id="contato">
+    <h2>Contato</h2>
+    <form id="contactForm" style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:12px;">
+      <input type="text" placeholder="Nome" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Mensagem" rows="5" required></textarea>
+      <button class="btn" type="submit">Enviar</button>
+    </form>
+  </section>
+</main>
 
-      <aside class="hero-card">
-        <img src="https://images.unsplash.com/photo-1526403224743-57a25a5d9a6e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="modelo fitness" />
-        <div style="margin-top:10px;font-weight:700">Legging Essential — Conforto e compressão</div>
-        <div class="muted" style="font-size:13px">A escolha das atletas</div>
-      </aside>
-    </section>
-
-    <section id="produtos">
-      <div class="tools">
-        <div style="flex:1;min-width:220px" class="search">
-          <input id="search" placeholder="Buscar por nome, categoria..." />
-        </div>
-        <div style="width:180px">
-          <select id="filterCategory">
-            <option value="">Todas as categorias</option>
-            <option value="Legging">Legging</option>
-            <option value="Top">Top</option>
-            <option value="Acessório">Acessório</option>
-          </select>
-        </div>
-        <div style="width:130px">
-          <select id="sortBy">
-            <option value="popular">Mais populares</option>
-            <option value="price_asc">Preço: menor</option>
-            <option value="price_desc">Preço: maior</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid" id="productGrid">
-        <!-- cards gerados por JS -->
-      </div>
-    </section>
-
-    <section id="sobre" style="margin-top:36px">
-      <h2>Sobre a Moda Fitness</h2>
-      <p class="muted">Fundada por amantes do esporte, nossa missão é unir estilo e tecnologia têxtil para entregar peças que resistem ao treino e ao tempo.</p>
-    </section>
-
-    <section id="contato" style="margin-top:24px">
-      <h2>Fale conosco</h2>
-      <form id="contactForm" style="margin-top:12px;display:grid;gap:8px;max-width:560px">
-        <input type="text" id="nome" placeholder="Seu nome" required />
-        <input type="email" id="email" placeholder="Seu email" required />
-        <textarea id="mensagem" placeholder="Mensagem" rows="4" required></textarea>
-        <div style="display:flex;gap:8px">
-          <button class="btn" type="submit">Enviar</button>
-          <button class="ghost" type="reset">Limpar</button>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
-    <h3>Carrinho</h3>
-    <div id="cartItems"></div>
-    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
-      <div class="muted">Total:</div>
-      <div id="cartTotal" style="font-weight:800">R$ 0,00</div>
-    </div>
-    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
-      <button class="ghost" id="closeCart">Fechar</button>
-      <button class="btn" id="checkout">Finalizar</button>
-    </div>
+<div id="cartDrawer">
+  <h2>Seu Carrinho</h2>
+  <div id="cartItems"></div>
+  <div class="cart-total">Total: <span id="cartTotal">R$ 0,00</span></div>
+  <div class="cart-actions">
+    <button class="ghost" id="clearCart">Limpar</button>
+    <button class="ghost" id="closeCart">Fechar</button>
+    <button class="btn" id="checkout">Finalizar</button>
   </div>
+</div>
 
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <strong>Moda Fitness</strong>
-        <div class="muted">Rua Exemplo, 123 — São Paulo, SP</div>
-      </div>
-      <div>
-        <strong>Ajuda</strong>
-        <div class="muted">Trocas · Entrega · Tamanhos</div>
-      </div>
-      <div>
-        <strong>Siga-nos</strong>
-        <div class="muted">Instagram · TikTok · Facebook</div>
-      </div>
-    </div>
-  </footer>
+<footer>
+  <p>&copy; 2025 Moda Fitness - Todos os direitos reservados</p>
+  <p>
+    <a href="#">Instagram</a> |
+    <a href="#">Facebook</a> |
+    <a href="#">WhatsApp</a>
+  </p>
+</footer>
 
-  <script src="index.js"></script>
+<script>
+  const produtos=[
+    {id:1,nome:"Legging Performance",price:129.90,img:"https://source.unsplash.com/400x400/?fitness,leggings"},
+    {id:2,nome:"Top Esportivo",price:79.90,img:"https://source.unsplash.com/400x400/?fitness,top"},
+    {id:3,nome:"Short Fitness",price:99.90,img:"https://source.unsplash.com/400x400/?fitness,shorts"},
+    {id:4,nome:"Camiseta Dry",price:69.90,img:"https://source.unsplash.com/400x400/?fitness,tshirt"},
+    {id:5,nome:"Jaqueta Corta Vento",price:199.90,img:"https://source.unsplash.com/400x400/?fitness,jacket"},
+    {id:6,nome:"Tênis Training",price:299.90,img:"https://source.unsplash.com/400x400/?fitness,sneakers"},
+    {id:7,nome:"Macacão Fitness",price:159.90,img:"https://source.unsplash.com/400x400/?fitness,overall"},
+    {id:8,nome:"Regata Esportiva",price:59.90,img:"https://source.unsplash.com/400x400/?fitness,regata"}
+  ];
+
+  let cart=[];
+
+  function formatPrice(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+
+  function renderProducts(list){
+    const grid=document.getElementById('produtosGrid');
+    grid.innerHTML='';
+    list.forEach(p=>{
+      const card=document.createElement('div');
+      card.className='produto';
+      card.innerHTML=`
+        <img src="${p.img}" alt="${p.nome}">
+        <h3>${p.nome}</h3>
+        <p>Peça confortável e estilosa para seus treinos.</p>
+        <span>${formatPrice(p.price)}</span>
+        <button class="btn" onclick="addToCart(${p.id})">Adicionar</button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function updateCartUI(){
+    const cartCount=document.getElementById('cartCount');
+    const cartItems=document.getElementById('cartItems');
+    const cartTotal=document.getElementById('cartTotal');
+    cartCount.textContent=cart.reduce((s,i)=>s+i.qty,0);
+    cartItems.innerHTML='';
+    let total=0;
+    cart.forEach(item=>{
+      const prod=produtos.find(p=>p.id===item.id);
+      if(prod){
+        total+=prod.price*item.qty;
+        const div=document.createElement('div');
+        div.style.marginBottom='10px';
+        div.innerHTML=`${item.qty}x ${prod.nome} - ${formatPrice(prod.price*item.qty)}
+        <button onclick="removeFromCart(${item.id})">x</button>`;
+        cartItems.appendChild(div);
+      }
+    });
+    cartTotal.textContent=formatPrice(total);
+  }
+
+  function addToCart(id){
+    const item=cart.find(i=>i.id===id);
+    if(item) item.qty++;
+    else cart.push({id,qty:1});
+    updateCartUI();
+  }
+
+  function removeFromCart(id){
+    cart=cart.filter(i=>i.id!==id);
+    updateCartUI();
+  }
+
+  function clearCart(){
+    cart=[];
+    updateCartUI();
+  }
+
+  // eventos do carrinho
+  document.getElementById('cartBtn').addEventListener('click',()=>document.getElementById('cartDrawer').classList.toggle('open'));
+  document.getElementById('closeCart').addEventListener('click',()=>document.getElementById('cartDrawer').classList.remove('open'));
+  document.getElementById('clearCart').addEventListener('click',clearCart);
+  document.getElementById('checkout').addEventListener('click',()=>alert('Compra finalizada com sucesso!'));
+
+  // filtros
+  document.getElementById('busca').addEventListener('input',e=>{
+    const termo=e.target.value.toLowerCase();
+    const filtrados=produtos.filter(p=>p.nome.toLowerCase().includes(termo));
+    renderProducts(filtrados);
+  });
+
+  document.getElementById('ordenar').addEventListener('change',e=>{
+    const val=e.target.value;
+    let lista=[...produtos];
+    if(val==='asc') lista.sort((a,b)=>a.price-b.price);
+    if(val==='desc') lista.sort((a,b)=>b.price-a.price);
+    renderProducts(lista);
+  });
+
+  // contato
+  document.getElementById('contactForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    alert('Mensagem enviada com sucesso!');
+    e.target.reset();
+  });
+
+  // inicializa
+  renderProducts(produtos);
+</script>
 
 </body>
 </html>
